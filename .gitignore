@@ -1,0 +1,41 @@
+# PHP
+vendor/
+composer.phar
+composer.lock
+*.log
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Configuration files (may contain sensitive data)
+config/database.php
+config/*.local.php
+
+# Uploads and user content
+uploads/
+files/
+images/user_uploads/
+
+# Cache and temporary files
+cache/
+tmp/
+temp/
+*.tmp
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+
+# OS files
+Thumbs.db
+.DS_Store
