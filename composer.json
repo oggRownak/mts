@@ -1,0 +1,15 @@
+{
+  "name": "mts-hospital/website",
+  "description": "MTS Hospital - Bilingual website with language switching functionality",
+  "type": "project",
+  "keywords": ["hospital", "healthcare", "bilingual", "myanmar", "english"],
+  "license": "MIT",
+  "require": {
+    "php": "^7.4 || ^8.0 || ^8.1 || ^8.2"
+  },
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
+  }
+}
