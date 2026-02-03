@@ -4,16 +4,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 0); // Don't display errors on screen to prevent breaking headers
 ini_set('log_errors', 1);
 
-// Start output buffering to prevent header issues
+// Start output buffering as early as possible to catch any whitespace
 ob_start();
 
+// Start session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-}
-
-// Language handling - set default if not exists
-if (!isset($_SESSION['lang'])) {
-    $_SESSION['lang'] = 'en'; // Default language
 }
 
 // Handle language switch
@@ -32,11 +28,23 @@ if (isset($_GET['lang']) && in_array($_GET['lang'], ['en', 'my'])) {
     }
     
     // Clear any output buffer before redirecting
-    ob_end_clean();
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
     
     // Redirect with absolute path
-    header("Location: " . $redirect_url);
+    header("Location: " . $redirect_url, true, 302);
     exit();
+}
+
+// Ensure output buffering is active for the rest of the page
+if (ob_get_level() == 0) {
+    ob_start();
+}
+
+// Language handling - set default if not exists
+if (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = 'en'; // Default language
 }
 
 $currentLang = $_SESSION['lang'];
@@ -1165,6 +1173,8 @@ setTimeout(checkNotifications, 5000);
 </html>
 <?php
 // Flush output buffer
-ob_end_flush();
+if (ob_get_level() > 0) {
+    ob_end_flush();
+}
 ?>
 
